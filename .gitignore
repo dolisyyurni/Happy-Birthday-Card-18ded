@@ -4,6 +4,9 @@ dist/
 .env
 *-safe.*
 temp/
-local/
+local/*
+!local/
+!local/farah.jpeg
+!local/longteks.txt
 src/index.html
 src/pic.jpeg

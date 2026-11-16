@@ -18,7 +18,11 @@ const generateMarkupLocal = function (msg) {
   return msg.split("\n").reduce((string, para) => {
     para = para.replace("\r", "");
     if (!para.length) return string;
-    return string + `<p>${para}</p> `;
+    const safePara = para
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;");
+    return string + `<p>${safePara}</p> `;
   }, "");
 };
 
