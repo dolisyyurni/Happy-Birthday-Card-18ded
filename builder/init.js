@@ -37,6 +37,21 @@ const setLocalData = async () => {
 //Remote initialization
 const setRemoteData = async () => {
   try {
+    const localDir = path.join(__dirname, "../local");
+    const configuredLocalPic = path.join(localDir, picPath);
+    const localMessage = path.join(localDir, msgPath || "");
+    // Netlify builds from the repository, so local assets configured by filename
+    // should be read from /local instead of treated as remote URLs/Telegraph pages.
+    if (fs.existsSync(configuredLocalPic)) {
+      let markup = "";
+      if (msgPath && fs.existsSync(localMessage)) {
+        markup = generateMarkupLocal(fs.readFileSync(localMessage, "utf-8"));
+      }
+      await setPic(configuredLocalPic);
+      genIndex(markup);
+      return;
+    }
+
     // Google Drive's /file/d/.../view page is HTML, not an image. Convert
     // shared-file URLs to the direct download endpoint before passing them to sharp.
     const driveFileId = picPath.match(/drive\.google\.com\/file\/d\/([^/]+)/)?.[1];
