@@ -6,3 +6,6 @@
 [template.environment]
   NAME = "enter Name of the receiver"
   PIC = "enter web url of the receiver's image"
+  NICKNAME = "nickname"
+  HBD_MSG = "custom message" 
+  SCROLL_MSG = "long text"
